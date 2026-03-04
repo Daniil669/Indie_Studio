@@ -1,0 +1,7 @@
+<div class="blog-card">
+  <img src="{{ post.image.url }}" alt="">
+  <h3>{{ post.title }}</h3>
+  <p>{{ post.excerpt|truncatewords:30 }}</p>
+  <small>{{ post.created_at|date:"d M Y" }}</small>
+  <a href="{{ post.get_absolute_url }}" class="btn">Read more</a>
+</div>

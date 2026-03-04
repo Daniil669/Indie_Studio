@@ -1,0 +1,23 @@
+{% load static %}
+<footer class="footer">
+  <div class="footer-content">
+    <div class="social-links">
+      <a href="https://x.com/yourstudio" target="_blank"><img src="{% static 'icons/x.svg' %}" alt="X"></a>
+      <a href="https://discord.gg/yourstudio" target="_blank"><img src="{% static 'icons/discord.svg' %}" alt="Discord"></a>
+      <!-- Add more socials as needed -->
+    </div>
+    <div class="newsletter">
+      <form method="post" action="{% url 'subscriptions:subscribe' %}">
+        {% csrf_token %}
+        <input type="email" name="email" placeholder="Subscribe to newsletter" required>
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+    <div class="logo-section">
+    <a href="{% url 'home' %}" class="logo">
+      <img src="{% static 'images/logo.png' %}" alt="Indie Studio Logo">
+    </a>
+  </div>
+    <p>&copy; {% now "Y" %} Your Indie Studio. All rights reserved.</p>
+  </div>
+</footer>
