@@ -20,10 +20,10 @@
     <h2>Latest News and Updates</h2>
     <div class="post-grid">
       {% for post in posts %}
-        {% include 'components/blog_tool_card.html' with post=post %}
+        {% include 'components/blog_tool_card.html' with item=post %}
       {% endfor %}
     </div>
-    <a href="{% url 'blog:blog' %}" class="view-more">View All Blog Posts</a>
+    <a href="{% url 'blog:list' %}" class="view-more">View All Blog Posts</a>
   </section>
 
   <!-- Featured Games Section -->
@@ -34,7 +34,7 @@
         {% include 'components/game_card.html' with game=game %}
       {% endfor %}
     </div>
-    <a href="{% url 'games:games' %}" class="view-more">View All Games</a>
+    <a href="{% url 'games:list' %}" class="view-more">View All Games</a>
   </section>
 
   <!-- Featured Tools Section -->
@@ -42,10 +42,10 @@
     <h2>Our Tools</h2>
     <div class="tool-grid">
       {% for tool in tools %}
-        {% include 'components/blog_tool_card.html' with tool=tool %}  <!-- Assuming a similar partial for tools, or reuse blog_card if similar -->
+        {% include 'components/blog_tool_card.html' with item=tool %}  <!-- Assuming a similar partial for tools, or reuse blog_card if similar -->
       {% endfor %}
     </div>
-    <a href="{% url 'tools:tools' %}" class="view-more">View All Tools</a>
+    <a href="{% url 'tools:list' %}" class="view-more">View All Tools</a>
   </section>
 
   <!-- Subscription Section -->

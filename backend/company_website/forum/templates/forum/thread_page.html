@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+  <section class="thread-detail">
+    <h1>{{ object.title }}</h1>
+    <small>Started by {{ object.author }} on {{ object.created_at|date:"d M Y" }}</small>
+    
+    <div class="posts">
+      {% for post in object.posts.all %}
+        <div class="post">
+          <p>{{ post.body }}</p>
+          <small>By {{ post.author }} on {{ post.created_at|date:"d M Y H:i" }}</small>
+        </div>
+      {% endfor %}
+    </div>
+    
+    {% if user.is_authenticated and user.profile.is_verified %}
+      <a href="{% url 'forum:add_post' object.slug %}" class="btn">Add Reply</a>
+    {% endif %}
+  </section>
+{% endblock %}

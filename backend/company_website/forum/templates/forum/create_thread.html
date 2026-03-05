@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Create New Thread{% endblock %}
+
+{% block content %}
+  <section class="create-thread">
+    <h1>Create New Thread</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Create</button>
+    </form>
+  </section>
+{% endblock %}

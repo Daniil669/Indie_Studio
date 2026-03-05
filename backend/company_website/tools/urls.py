@@ -1,8 +1,11 @@
 from django.urls import path
 from . import views
+from .views import ToolListView, ToolDetailView
 
 app_name = 'tools'
 
 urlpatterns = [
-    path('tools/', views.tools, name='tools'),
+    path('', ToolListView.as_view(), name='list'),
+    path('<slug:slug>/', ToolDetailView.as_view(), name='detail'),
+
 ]

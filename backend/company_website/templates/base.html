@@ -5,17 +5,21 @@
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}My Indie Studio{% endblock %}</title>
-  <!-- <link rel="stylesheet" href="{% static 'css/style.css' %}"> -->
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-  {% include 'components/navbar.html' %}
+  <div class="site-container">
+    {% include 'components/navbar.html' %}
+    
+    <main class="main-content">
+      {% block content %}
+      
+      {% endblock %}
+    </main>
+    
+    {% include 'components/footer.html' %}
+  </div>
   
-  {% block content %}
-    <!-- page-specific stuff goes here -->
-  {% endblock %}
-  
-  {% include 'components/footer.html' %}
-  
-  <!-- <script src="{% static 'js/theme-toggle.js' %}"></script> -->
+  <script src="{% static 'js/theme-toggle.js' %}"></script>
 </body>
 </html>

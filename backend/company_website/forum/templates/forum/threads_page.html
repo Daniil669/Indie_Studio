@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Forum{% endblock %}
+
+{% block content %}
+  <section class="forum">
+    <h1>Forum Discussions</h1>
+    {% if user.is_authenticated and user.profile.is_verified %}
+      <a href="{% url 'forum:create_thread' %}" class="btn">Create New Thread</a>
+    {% endif %}
+    <ul class="thread-list">
+      {% for thread in threads %}
+        <li>
+          <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
+          by {{ thread.author }} - {{ thread.created_at|date:"d M Y" }}
+          ({{ thread.posts.count }} posts)
+        </li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock %}

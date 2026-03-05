@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Reply to {{ thread.title }}{% endblock %}
+
+{% block content %}
+  <section class="add-post">
+    <h1>Add Reply to {{ thread.title }}</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Post Reply</button>
+    </form>
+  </section>
+{% endblock %}

@@ -2,7 +2,9 @@
   <a href="{{ game.get_absolute_url }}">
     <div class="preview">
       <img src="{{ game.cover.url }}" alt="{{ game.title }}" class="poster">
-      <video src="{{ game.preview_video.url }}" muted loop playsinline></video>
+      {% if game.preview_video %}
+        <video src="{{ game.preview_video.url }}" muted loop playsinline></video>
+      {% endif %}
     </div>
     <h3>{{ game.title }}</h3>
   </a>

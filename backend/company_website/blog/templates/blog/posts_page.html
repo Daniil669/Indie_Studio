@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Blog{% endblock %}
+
+{% block content %}
+  <section class="blog">
+    <h1>Blog Posts</h1>
+    <div class="post-grid">
+      {% for post in posts %}
+        {% include 'components/blog_tool_card.html' with item=post %}
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

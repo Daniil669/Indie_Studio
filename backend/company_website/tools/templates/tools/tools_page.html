@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Tools{% endblock %}
+
+{% block content %}
+  <section class="tools">
+    <h1>Our Tools</h1>
+    <div class="tool-grid">
+      {% for tool in tools %}
+        {% include 'components/blog_tool_card.html' with item=tool %}
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Our Games{% endblock %}
+
+{% block content %}
+  <section class="games">
+    <h1>Our Games</h1>
+    <div class="game-grid">
+      {% for game in games %}
+        {% include 'components/game_card.html' with game=game %}
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

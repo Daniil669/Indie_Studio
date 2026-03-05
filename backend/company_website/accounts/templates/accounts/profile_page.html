@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Profile - {{ user.username }}{% endblock %}
+
+{% block content %}
+  <section class="profile">
+    <h1>Profile: {{ user.username }}</h1>
+    {% if user.profile.profile_picture %}
+      <img src="{{ user.profile.profile_picture.url }}" alt="Profile Picture" class="profile-pic">
+    {% else %}
+      <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Picture" class="profile-pic">
+    {% endif %}
+    <p>Email: {{ user.email }}</p>
+    <p>Verified: {% if user.profile.is_verified %}Yes{% else %}No{% endif %}</p>
+    <p>Joined: {{ user.date_joined|date:"d M Y" }}</p>
+
+    <!-- Update Profile Form -->
+    <h2>Update Profile</h2>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ user_form.as_p }}
+      {{ profile_form.as_p }}
+      <button type="submit">Update</button>
+    </form>
+
+    <!-- Change Password Link -->
+    <h2>Change Password</h2>
+    <a href="{% url 'accounts:change_password' %}">Change Password</a>
+
+    <!-- Created Threads -->
+    <h2>Your Created Threads</h2>
+    <ul>
+      {% for thread in threads %}
+        <li>
+          <a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a> - {{ thread.created_at|date:"d M Y" }}
+        </li>
+      {% empty %}
+        <li>No threads created yet.</li>
+      {% endfor %}
+    </ul>
+  </section>
+{% endblock %}

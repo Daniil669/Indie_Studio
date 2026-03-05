@@ -93,9 +93,19 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_ROOT = BASE_DIR/'static'
+# STATIC_ROOT = BASE_DIR/'static'
 STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+]
 
 # Media files
-MEDIA_ROOT = BASE_DIR/'media'
+# MEDIA_ROOT = BASE_DIR/'media'
 MEDIA_URL = 'media/'
+MEDIAFILES_DIRS = [
+    BASE_DIR / "media",
+]
+
+
+# only dev environment 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

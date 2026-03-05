@@ -1,3 +1,8 @@
 from django.contrib import admin
+from .models import Tool
 
-# Register your models here.
+@admin.register(Tool)
+class ToolAdmin(admin.ModelAdmin):
+    list_display = ('title', 'featured', 'created_at')
+    prepopulated_fields = {'slug': ('title',)}
+    list_filter = ('featured',)

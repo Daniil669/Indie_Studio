@@ -1,7 +1,15 @@
 <div class="blog-card">
-  <img src="{{ post.image.url }}" alt="">
-  <h3>{{ post.title }}</h3>
-  <p>{{ post.excerpt|truncatewords:30 }}</p>
-  <small>{{ post.created_at|date:"d M Y" }}</small>
-  <a href="{{ post.get_absolute_url }}" class="btn">Read more</a>
+  {% if item.image %}
+    <img src="{{ item.image.url }}" alt="">
+  {% elif item.cover %}
+    <img src="{{ item.cover.url }}" alt="">
+  {% endif %}
+  <h3>{{ item.title }}</h3>
+  {% if item.excerpt %}
+    <p>{{ item.excerpt|truncatewords:30 }}</p>
+  {% elif item.description %}
+    <p>{{ item.description|truncatewords:30 }}</p>
+  {% endif %}
+  <small>{{ item.created_at|date:"d M Y" }}</small>
+  <a href="{{ item.get_absolute_url }}" class="btn">View more</a>
 </div>
