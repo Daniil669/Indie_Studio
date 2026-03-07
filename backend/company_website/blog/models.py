@@ -1,6 +1,10 @@
 from django.db import models
 from django.utils.text import slugify
 from django.contrib.auth.models import User  # Assuming User for author
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from django.core.mail import send_mass_mail
+from subscriptions.models import Subscriber
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
@@ -61,3 +65,14 @@ class Reaction(models.Model):
 
     def __str__(self):
         return f"{self.reaction_type} by {self.user} on {self.post}"
+    
+
+@receiver(post_save, sender=Post)  # Or for Game
+def send_update_email(sender, instance, created, **kwargs):
+    if created:
+        subject = f'New Blog Post: {instance.title}'
+        message = f'Check out our new post: {instance.get_absolute_url()}'
+        from_email = 'no-reply@yourstudiogames.com'
+        subscribers = Subscriber.objects.filter(confirmed=True).values_list('email', flat=True)
+        emails = [(subject, message, from_email, [email]) for email in subscribers]
+        send_mass_mail(emails, fail_silently=True)
