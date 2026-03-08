@@ -1,14 +1,22 @@
 {% extends 'base.html' %}
 
+{% block title %}{{ object.title }}{% endblock %}
+
 {% block content %}
-  <h1>{{ object.title }}</h1>
-  <p>{{ object.content }}</p>
-  <small>By {{ object.author }} on {{ object.created_at }}</small>
+  <article class="post-detail">
+    <h1>{{ object.title }}</h1>
+    <small>By {{ object.author }} | Published: {{ object.created_at|date:"d M Y" }}</small>
+    <div class="content">
+      {{ object.content|safe }}  <!-- Renders rich HTML: headlines, paras, images/videos -->
+    </div>
 
   <!-- Reactions -->
   <div class="reactions">
     {% for data in reaction_data %}
-      <a href="{% url 'blog:add_reaction' object.slug data.type %}">{{ data.title }}</a> ({{ data.count }})
+      <a href="{% url 'blog:toggle_reaction' object.slug data.type %}"
+         class="{% if data.has_reacted %}active{% endif %}">
+        {{ data.emoji }}
+      </a> ({{ data.count }})
     {% endfor %}
   </div>
 
@@ -20,4 +28,5 @@
   {% if user.is_authenticated and user.profile.is_verified %}
     <a href="{% url 'blog:add_comment' object.slug %}">Add Comment</a>
   {% endif %}
+  </article>
 {% endblock %}

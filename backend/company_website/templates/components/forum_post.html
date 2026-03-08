@@ -1,0 +1,20 @@
+{% widthratio level 1 20 as margin %}
+{% load static %}
+<div class="post" id="post-{{ post.id }}" style="margin-left: {{ margin }}px;">
+  <div class="author-info">
+    {% if post.author.profile.profile_picture %}
+      <img src="{{ post.author.profile.profile_picture.url }}" alt="{{ post.author.username }}'s picture" class="profile-pic-small">
+    {% else %}
+      <img src="{% static 'images/default-profile.png' %}" alt="Default picture" class="profile-pic-small">
+    {% endif %}
+    <strong>{{ post.author.username }}</strong>
+    <small>{{ post.created_at|date:"d M Y H:i" }}</small>
+  </div>
+  <div class="body">{{ post.body|safe }}</div> <!-- Renders rich HTML: text + images -->
+  {% if user.is_authenticated and user.profile.is_verified %}
+    <a href="{% url 'forum:reply_post' post.thread.slug post.id %}">Reply</a>
+  {% endif %}
+  {% for reply in post.replies.all %}
+    {% include 'components/forum_post.html' with post=reply level=level|add:1 %}
+  {% endfor %}
+</div>

@@ -1,17 +1,18 @@
 from django.db import models
 from django.utils.text import slugify
-from django.contrib.auth.models import User  # Assuming User for author
+from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.core.mail import send_mass_mail
 from subscriptions.models import Subscriber
+from ckeditor.fields import RichTextField
 
 class Post(models.Model):
     title = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200, unique=True, blank=True)
-    image = models.ImageField(upload_to='blog/images/', blank=True, null=True)
-    excerpt = models.TextField(max_length=300, blank=True)  # Short description for cards
-    content = models.TextField()  # Full blog content
+    image = models.ImageField(upload_to='blog/images/', blank=True, null=True)  # For card
+    excerpt = models.TextField(max_length=300, blank=True)  # Short desc for card
+    content = RichTextField()  # Rich text for full post (headlines, paras, images/videos)
     author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='blog_posts')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -20,8 +21,9 @@ class Post(models.Model):
         if not self.slug:
             self.slug = slugify(self.title)
         if not self.excerpt:
-            self.excerpt = self.content[:300] + '...'  # Auto-generate if blank
+            self.excerpt = self.content[:300] + '...'  # Auto from rich content (strip tags if needed)
         super().save(*args, **kwargs)
+
 
     def get_reaction_count(self, reaction_type):
         return self.reactions.filter(reaction_type=reaction_type).count()
@@ -31,6 +33,7 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return f"/blog/{self.slug}/"
+
     
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')

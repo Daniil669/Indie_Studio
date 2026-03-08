@@ -5,6 +5,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('ckeditor/', include('ckeditor_uploader.urls')),
     path('', include('core.urls')),  # Includes home and about from core
     path('games/', include('games.urls', namespace='games')),
     path('tools/', include('tools.urls', namespace='tools')),
@@ -12,6 +13,7 @@ urlpatterns = [
     path('forum/', include('forum.urls', namespace='forum')),
     path('accounts/', include('accounts.urls', namespace='accounts')),
     path('subscriptions/', include('subscriptions.urls', namespace='subscriptions')),
+
 ]
 
 if settings.DEBUG:

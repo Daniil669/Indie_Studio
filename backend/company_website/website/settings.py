@@ -30,6 +30,8 @@ INSTALLED_APPS = [
     'games',
     'subscriptions',
     'tools',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -109,3 +111,17 @@ MEDIAFILES_DIRS = [
 
 # only dev environment 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+# CKEditor
+CKEDITOR_UPLOAD_PATH = 'uploads/'  # Media subfolder for CKEditor uploads
+CKEDITOR_IMAGE_BACKEND = 'pillow'
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'full',
+        'height': 400,
+        'width': '100%',
+        'filebrowserUploadUrl': '/ckeditor/upload/',
+        'extraPlugins': 'codesnippet',  # Optional for code blocks
+    },
+}

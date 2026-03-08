@@ -4,11 +4,15 @@
 
 {% block content %}
   <section class="tool-detail">
-    <h1>{{ object.title }}</h1>
-    {% if object.cover %}
-      <img src="{{ object.cover.url }}" alt="{{ object.title }} Cover">
-    {% endif %}
-    <p>{{ object.description }}</p>
-    <small>Created: {{ object.created_at|date:"d M Y" }}</small>
+    <article class="tool-detail">
+      <h1>{{ object.title }}</h1>
+      <small>Published: {{ object.created_at|date:"d M Y" }}</small>
+      {% if object.cover %}
+        <img src="{{ object.cover.url }}" alt="{{ object.title }} Cover" class="featured-img">
+      {% endif %}
+      <div class="description">
+        {{ object.description|safe }}  <!-- Renders rich HTML: desc, headlines, screenshots/videos/links -->
+      </div>
+    </article>
   </section>
 {% endblock %}

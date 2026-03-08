@@ -39,5 +39,18 @@
         <li>No threads created yet.</li>
       {% endfor %}
     </ul>
+
+    <!-- Notifications -->
+    <h2>Notifications</h2>
+    <ul>
+      {% for notification in notifications %}
+        <li>
+          <a href="{{ notification.link }}">{{ notification.message }} ({{ notification.created_at|date:"d M Y H:i" }})</a>
+          {% if not notification.is_read %}<span class="new">New</span>{% endif %}
+        </li>
+      {% empty %}
+        <li>No notifications yet.</li>
+      {% endfor %}
+    </ul>
   </section>
 {% endblock %}

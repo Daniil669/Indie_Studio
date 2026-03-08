@@ -71,11 +71,14 @@ def profile(request):
         user_form = UserUpdateForm(instance=request.user)
         profile_form = ProfileUpdateForm(instance=request.user.profile)
 
+    notifications = request.user.notifications.order_by('-created_at')[:10]  # Last 10 notifications
+
     context = {
         'user': request.user,
         'threads': threads,
         'user_form': user_form,
         'profile_form': profile_form,
+        'notifications': notifications,
     }
     return render(request, 'accounts/profile_page.html', context)
 
